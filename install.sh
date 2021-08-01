@@ -10,7 +10,7 @@ dir=/home/FiveM/FXServer/server
 
 if [ -e /home/FiveM/ ]
 then
-	echo "ERROR: Thee directory /home/FiveM/ already existed"
+	echo "ERROR: The directory /home/FiveM/ already existed"
 else
 	mkdir /home/FiveM/
 	mkdir /home/FiveM/FXServer/
