@@ -1,4 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+red="$(tput setaf 1)"
+yellow="$(tput setaf 3)"
+green="$(tput setaf 2)"
+nc="$(tput sgr0)"
+
 clear
 echo installing git...
 sleep 2
@@ -10,18 +16,50 @@ dir=/home/FiveM/FXServer/server
 
 if [ -e /home/FiveM/ ]
 then
-	echo "ERROR: The directory /home/FiveM/ already existed"
+	printf "${red} ERROR: The directory /home/FiveM/ already exists"
 else
+	echo "${yellow}Creating needed directories${nc}"
+	
 	mkdir /home/FiveM/
+	echo "/home/FiveM/ created ${green}successfully${nc}"
+
 	mkdir /home/FiveM/FXServer/
-	
+	echo "/home/FiveM/FXServer/ created ${green}successfully${nc}"
+
+	echo "Cloning ${yellow}https://github.com/citizenfx/cfx-server-data.git${nc}"
+	sleep 1
+	clear
 	git clone https://github.com/citizenfx/cfx-server-data.git $dir
+	clear
+
+	echo "Downloading ${yellow}fx.tar.xz${nc}"
 	wget --directory-prefix=$dir https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/$(wget -qO- https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/ | egrep -m 1 -o "............................................./*\/fx.tar.xz")
-	
+	echo "${green}Success${nc}"
+
+	sleep 1
+	clear
+
+	echo "Unpacking ${yellow}fx.tar.xz${nc}"
 	tar xf $dir/fx.tar.xz -C $dir
+
+	echo "${green}Success${nc}"
+	sleep 1
+
+	clear
 	
 	rm -r $dir/fx.tar.xz
+	echo "${red}Deleting ${nc}fx.tar.xz"
+
+	sleep 1
+	clear
 	
-	echo screen -S fivem bash $dir/run.sh >$dir/start.sh
+
+	echo "Creating ${yellow}start.sh${nc}"
+	echo screen -S fivem bash $dir/run.sh >$dir/start.sh; chmod +x $dir/start.sh
+	
+	sleep 1
+	clear
+
+	read -rsn1 -p"Press any key to ${green}continue${nc}";echo
 	sh $dir/start.sh
 fi
