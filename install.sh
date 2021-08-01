@@ -1,7 +1,6 @@
 #!/bin/sh
 clear
 echo installing git...
-sleep 2
 sudo apt install git screen xz-utils -y
 
 clear
