@@ -33,7 +33,8 @@ else
 	clear
 
 	echo "Downloading ${yellow}fx.tar.xz${nc}"
-	wget --directory-prefix=$dir https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/$(wget -qO- https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/ | egrep -m 1 -o "............................................./*\/fx.tar.xz")
+	string=`wget -qO- https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/ | egrep -m 3 -o "............................................./*\/fx.tar.xz"`
+	wget --directory-prefix=$dir https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/$string | cut -c113-
 	echo "${green}Success${nc}"
 
 	sleep 1
